@@ -1,0 +1,4 @@
+<div class="container mt-5">
+  <h2 class="text-center mb-5">Your most recent Bitcoin news</h2>
+  <app-article *ngFor="let item of newsService.articles | async" [article]="item"></app-article>
+</div>

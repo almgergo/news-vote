@@ -1,0 +1,11 @@
+<div class="card">
+  <div class="card-header font-weight-bold">{{ article.title }}</div>
+  <div class="card-body">
+    <img [src]="article.urlToImage" width="100%" />
+    <div class="mb-4 mt-3 font-weight-medium">
+      {{ article.description }}
+    </div>
+    <a [href]="article.url" target="_blank">{{ article.url }}</a>
+    <div class="text-right mt-4">{{ article.publishedAt | date: 'MMM d, y, H:mm:ss' }}</div>
+  </div>
+</div>
