@@ -1,11 +1,51 @@
 <div class="card">
-  <div class="card-header font-weight-bold">{{ article.title }}</div>
+  <div class="card-header font-weight-bold">
+    {{ article.title }}
+  </div>
   <div class="card-body">
-    <img [src]="article.urlToImage" width="100%" />
+    <img *ngIf="article.urlToImage" [src]="article.urlToImage" width="100%" />
     <div class="mb-4 mt-3 font-weight-medium">
       {{ article.description }}
     </div>
     <a [href]="article.url" target="_blank">{{ article.url }}</a>
-    <div class="text-right mt-4">{{ article.publishedAt | date: 'MMM d, y, H:mm:ss' }}</div>
+
+    <div class="d-flex mt-4 align-items-end">
+      <div class="m-2">
+        <div class="d-flex align-items-center">
+          <div class="p-2">
+            <span *ngIf="!selectedRating || !showRatings; else userRating">
+              Rate
+              <br />
+              this
+            </span>
+            <ng-template #userRating>
+              {{ selectedRating }}
+              <br />
+              You
+            </ng-template>
+          </div>
+          <div class="p-2">
+            <fa-icon
+              [icon]="article.userRating || (selectedRating && showRatings) ? faStar : faStarEmpty"
+              size="2x"
+              class="rate-icon"
+              (click)="showRatings = !showRatings"
+            ></fa-icon>
+          </div>
+
+          <div class="p-2 rate-container" *ngIf="showRatings" (mouseleave)="showRatings = false">
+            <span class="rating" *ngFor="let rating of ratings">
+              <fa-icon
+                (mouseenter)="selectedRating = rating"
+                [icon]="selectedRating >= rating ? faStar : faStarEmpty"
+                class="rate-icon"
+                (click)="setRating(rating)"
+              ></fa-icon>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="m-2 ml-auto">{{ article.publishedAt | date: 'MMM d, y, H:mm:ss' }}</div>
+    </div>
   </div>
 </div>

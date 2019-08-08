@@ -9,4 +9,6 @@ export interface Article {
   urlToImage: string;
   publishedAt: Date;
   content: string;
+
+  userRating?: number;
 }

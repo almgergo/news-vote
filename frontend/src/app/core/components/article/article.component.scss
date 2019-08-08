@@ -20,5 +20,18 @@
 
     background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0));
     color: #1b1d1a;
+
+    .rate-icon {
+      color: #e6c80e;
+    }
+
+    .rate-container {
+      border: 1px solid rgba(0, 0, 0, 0.3);
+      border-radius: 5px;
+
+      .rating {
+        padding: 0 2px;
+      }
+    }
   }
 }
