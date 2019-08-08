@@ -11,4 +11,5 @@ export interface Article {
   content: string;
 
   userRating?: number;
+  voteId?: number;
 }

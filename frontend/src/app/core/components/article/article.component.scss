@@ -11,8 +11,17 @@
   .card-header {
     font-size: 1.2rem;
 
-    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.6));
+    background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.6));
     color: white;
+
+    .rating {
+      white-space: nowrap;
+      font-size: 0.8rem;
+
+      .emphasized {
+        font-size: 1.4rem;
+      }
+    }
   }
 
   .card-body {
@@ -22,7 +31,7 @@
     color: #1b1d1a;
 
     .rate-icon {
-      color: #e6c80e;
+      cursor: pointer;
     }
 
     .rate-container {
@@ -31,7 +40,12 @@
 
       .rating {
         padding: 0 2px;
+        cursor: pointer;
       }
     }
   }
+}
+
+.rate-icon {
+  color: #e6c80e;
 }

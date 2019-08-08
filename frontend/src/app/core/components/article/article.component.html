@@ -1,27 +1,48 @@
 <div class="card">
+  <!--  header-->
   <div class="card-header font-weight-bold">
-    {{ article.title }}
+    <div class="d-flex flex-wrap flex-lg-nowrap">
+      <div class="m-2">{{ article.title }}</div>
+      <div class="m-2 ml-sm-auto rating" *ngIf="averageRating()">
+        <div>
+          <fa-icon [icon]="faStar" size="2x" class="rate-icon"></fa-icon>
+          <span class="pl-1 emphasized">{{ averageRating() | number: '1.0-1' }}</span>
+          / 10
+        </div>
+        <div class="text-center">( {{ voteCount() }} votes )</div>
+      </div>
+    </div>
   </div>
+
+  <!--  body-->
   <div class="card-body">
+    <!--    image-->
     <img *ngIf="article.urlToImage" [src]="article.urlToImage" width="100%" />
+
+    <!--    description-->
     <div class="mb-4 mt-3 font-weight-medium">
       {{ article.description }}
     </div>
+
+    <!--    link to article-->
     <a [href]="article.url" target="_blank">{{ article.url }}</a>
 
-    <div class="d-flex mt-4 align-items-end">
+    <div class="d-flex mt-4 align-items-end flex-wrap flex-lg-nowrap">
+      <!--      rate the article-->
       <div class="m-2">
         <div class="d-flex align-items-center">
           <div class="p-2">
-            <span *ngIf="!selectedRating || !showRatings; else userRating">
-              Rate
-              <br />
-              this
-            </span>
-            <ng-template #userRating>
-              {{ selectedRating }}
+            <span *ngIf="article.userRating || (selectedRating && showRatings); else rateThis">
+              {{ showRatings && selectedRating ? selectedRating : article.userRating }}
               <br />
               You
+            </span>
+            <ng-template #rateThis>
+              <div>
+                Rate
+                <br />
+                this
+              </div>
             </ng-template>
           </div>
           <div class="p-2">
@@ -29,22 +50,24 @@
               [icon]="article.userRating || (selectedRating && showRatings) ? faStar : faStarEmpty"
               size="2x"
               class="rate-icon"
-              (click)="showRatings = !showRatings"
+              (click)="showRatings = !showRatings; selectedRating = this.article.userRating"
             ></fa-icon>
           </div>
 
-          <div class="p-2 rate-container" *ngIf="showRatings" (mouseleave)="showRatings = false">
+          <div class="d-flex flex-wrap p-2 rate-container" *ngIf="showRatings" (mouseleave)="showRatings = false">
             <span class="rating" *ngFor="let rating of ratings">
               <fa-icon
                 (mouseenter)="selectedRating = rating"
                 [icon]="selectedRating >= rating ? faStar : faStarEmpty"
                 class="rate-icon"
-                (click)="setRating(rating)"
+                (click)="setRating(rating); showRatings = false"
               ></fa-icon>
             </span>
           </div>
         </div>
       </div>
+
+      <!--      published at-->
       <div class="m-2 ml-auto">{{ article.publishedAt | date: 'MMM d, y, H:mm:ss' }}</div>
     </div>
   </div>

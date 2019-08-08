@@ -2,13 +2,13 @@ package com.almgergo.chappuishalder.controller;
 
 import com.almgergo.chappuishalder.converter.VoteDto2VoteConverter;
 import com.almgergo.chappuishalder.model.dto.VoteDto;
+import com.almgergo.chappuishalder.model.entity.Vote;
 import com.almgergo.chappuishalder.service.VoteService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Vote controller
@@ -23,9 +23,9 @@ public class VoteController extends ApiController {
     private VoteService voteService;
 
     @PostMapping("/votes")
-    @ResponseStatus(value = HttpStatus.OK)
-    public void recordVote(@RequestBody(required = true) VoteDto vote) {
-        this.voteService.addVote(this.voteDto2VoteConverter.convert(vote));
+    @ResponseBody
+    public Long recordVote(@RequestBody(required = true) VoteDto voteDto) {
+        return this.voteService.saveVote(this.voteDto2VoteConverter.convert(voteDto)).getId();
     }
 }
 

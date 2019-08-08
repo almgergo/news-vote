@@ -14,7 +14,8 @@ public class VoteService {
     @Autowired
     private VoteRepository voteRepository;
 
-    public void addVote(Vote vote) {
-        this.voteRepository.save(vote);
+    public Vote saveVote(Vote vote) {
+        return this.voteRepository.save(vote);
     }
+
 }

@@ -21,9 +21,30 @@ export class ArticleComponent {
 
   constructor(private newsService: NewsService) {}
 
+  /**
+   * Set the rating for the article and save it to the backend
+   */
   setRating(rating: number) {
     this.article.userRating = rating;
 
-    this.newsService.saveRating(this.article).subscribe(console.log);
+    this.newsService.saveVote(this.article).subscribe((voteId) => (this.article.voteId = voteId));
+  }
+
+  /**
+   * Return the average rating for the article
+   */
+  averageRating(): number {
+    return this.newsService.ratings.get(this.article.url)
+      ? this.newsService.ratings.get(this.article.url).voteAverage
+      : null;
+  }
+
+  /**
+   * Return the vote count for the article
+   */
+  voteCount(): number {
+    return this.newsService.ratings.get(this.article.url)
+      ? this.newsService.ratings.get(this.article.url).voteCount
+      : null;
   }
 }

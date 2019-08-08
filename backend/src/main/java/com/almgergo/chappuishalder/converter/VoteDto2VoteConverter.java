@@ -18,6 +18,6 @@ public class VoteDto2VoteConverter implements Converter<VoteDto, Vote> {
      */
     @Override
     public Vote convert(VoteDto source) {
-        return Vote.builder().value(source.getValue()).articleUrl(source.getArticleUrl()).build();
+        return Vote.builder().id(source.getId()).value(source.getValue()).articleUrl(source.getArticleUrl()).build();
     }
 }

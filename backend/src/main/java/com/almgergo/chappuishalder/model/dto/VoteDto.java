@@ -8,6 +8,11 @@ import lombok.Data;
 @Data
 public class VoteDto {
     /**
+     * Id of the vote, if not null then it is a modified vote
+     */
+    private Long id;
+
+    /**
      * Value of the vote on a scale of 0-10
      */
     private Double value;
