@@ -12,5 +12,5 @@ export class NewsFlowComponent {
   faBitcoin = faBtc;
   faSpinner = faSpinner;
 
-  constructor(private newsService: NewsService) {}
+  constructor(public newsService: NewsService) {}
 }

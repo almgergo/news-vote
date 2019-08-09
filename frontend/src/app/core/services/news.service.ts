@@ -12,7 +12,7 @@ import { Rating } from '../model/rating';
 })
 export class NewsService {
   articles: Observable<Article[]>;
-  ratings: Map<string, Rating>;
+  ratings: Map<string, Rating> = new Map();
 
   constructor(private http: HttpClient) {
     // load articles
