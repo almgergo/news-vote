@@ -1,0 +1,36 @@
+version: '3.6'
+networks:
+  internal-net:
+   name: workbench_subnet
+services:
+  backend:
+    container_name: backend
+    build:
+      context: ./backend
+      dockerfile: ./Dockerfile
+    networks:
+      - internal-net
+    ports:
+      - 8080:8080
+    command: java -jar /opt/assets/chappuis-halder-1.0.jar
+  # db:
+    # image: postgres:10.5
+    # container_name: db
+    # restart: always
+    # volumes:
+      # - ./backend/sql/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    # environment:
+      # POSTGRES_PASSWORD: example
+    # ports:
+    # networks:
+      # - "5432:5432"
+      # - internal-net
+  proxy:
+    container_name: proxy
+    build:
+      context: ./frontend
+      dockerfile: ./Dockerfile
+    ports:
+      - 4200:80
+    networks:
+      - internal-net
